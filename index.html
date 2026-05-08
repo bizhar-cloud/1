@@ -4,319 +4,255 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     
-    <link rel="apple-touch-icon" href="https://i.postimg.cc/m2z3wCVb/60B41B3B-7295-4DB5-8210-F367261C1CE3.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#9e0b0f">
     
-    <title>Bizhar Rasheed | IT Specialist</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&family=Fira+Code:wght@500;700&family=Poppins:wght@600;800&display=swap');
-
-        :root {
-            --it-blue: #00f2ff;
-            --it-green: #00ff41;
-            --it-red: #ff3e3e;
-            --it-dark: #060709;
-        }
-
-        body, html {
-            margin: 0; padding: 0; min-height: 100vh;
-            font-family: 'Noto Sans Arabic', sans-serif;
-            background: var(--it-dark);
-            color: #fff; overflow-x: hidden;
-        }
-
-        #bg-video {
-            position: fixed; right: 0; bottom: 0; min-width: 100%; min-height: 100%;
-            z-index: -2; filter: brightness(0.12) contrast(1.1); object-fit: cover;
-        }
-
-        .overlay-dark {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, transparent 0%, var(--it-dark) 100%);
-            z-index: -1;
-        }
-
-        .container {
-            position: relative; z-index: 1;
-            max-width: 420px; margin: 40px auto;
-            background: rgba(15, 15, 20, 0.7);
-            backdrop-filter: blur(25px);
-            border: 1px solid rgba(0, 242, 255, 0.1);
-            border-radius: 40px;
-            padding: 50px 20px;
-            text-align: center;
-            box-shadow: 0 20px 80px rgba(0, 0, 0, 0.9);
-        }
-
-        /* --- 🚀 Ultra Modern Cyber Frame --- */
-        .logo-wrapper {
-            position: relative;
-            width: 150px;
-            height: 150px;
-            margin: 0 auto 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            background: #000;
-            padding: 5px;
-            box-shadow: 0 0 30px rgba(0, 242, 255, 0.2), inset 0 0 15px rgba(0, 255, 65, 0.2);
-        }
-
-        .logo-wrapper::before {
-            content: "";
-            position: absolute;
-            inset: -4px;
-            border-radius: 50%;
-            padding: 3px;
-            background: conic-gradient(from 0deg, transparent, var(--it-blue), transparent, var(--it-green), transparent);
-            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-            -webkit-mask-composite: xor;
-            mask-composite: exclude;
-            animation: spin 3s linear infinite;
-        }
-
-        .logo-wrapper::after {
-            content: "";
-            position: absolute;
-            inset: -12px;
-            border: 1px solid rgba(0, 242, 255, 0.15);
-            border-radius: 50%;
-            border-left-color: var(--it-blue);
-            border-right-color: var(--it-green);
-            animation: spin 6s reverse linear infinite;
-        }
-
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-
-        .logo-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            z-index: 5;
-            border: 2px solid rgba(255,255,255,0.1);
-            transition: 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-
-        .logo-wrapper:hover .logo-img {
-            transform: scale(1.08) rotate(3deg);
-        }
-
-        .name-main { font-family: 'Poppins', sans-serif; font-size: 28px; font-weight: 800; margin-bottom: 0; letter-spacing: 1px; }
-        .name-sub { font-size: 18px; color: var(--it-blue); font-weight: 700; margin-bottom: 35px; text-transform: uppercase; letter-spacing: 2px; }
-
-        /* Animations */
-        @keyframes anim-rotate { 100% { transform: rotate(360deg); } }
-        @keyframes anim-pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
-        @keyframes anim-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-7px); } }
-        @keyframes anim-shake { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-3px); } 75% { transform: translateX(3px); } }
-
-        .anim-systems { animation: anim-rotate 3s linear infinite; }
-        .anim-security { animation: anim-pulse 1.2s ease-in-out infinite; }
-        .anim-ads { animation: anim-shake 0.6s ease-in-out infinite; }
-        .anim-devops { animation: anim-float 2.5s ease-in-out infinite; }
-
-        @keyframes phoneShake { 0%, 100% { transform: rotate(0); } 15% { transform: rotate(12deg); } 30% { transform: rotate(-12deg); } }
-        .shake-icon { animation: phoneShake 0.8s infinite; display: inline-block; }
-
-        .dynamic-service-btn, .dynamic-contact-btn { overflow: hidden; position: relative; cursor: pointer; }
-
-        .dynamic-service-btn {
-            background: rgba(255, 255, 255, 0.04);
-            border: 2px solid var(--it-green);
-            border-radius: 22px; padding: 18px; margin-bottom: 25px;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
-            transition: all 0.4s ease;
-        }
-
-        #service-text { font-family: 'Poppins', sans-serif; font-size: 19px; font-weight: 700; }
-        #service-desc { font-size: 13px; font-weight: 400; opacity: 0.9; line-height: 1.5; }
-
-        .dynamic-contact-btn {
-            background: rgba(255, 255, 255, 0.06);
-            border-radius: 18px; padding: 20px; text-decoration: none; 
-            display: flex; align-items: center; justify-content: center; gap: 12px;
-            border: 2px solid var(--it-blue); margin-bottom: 25px;
-            transition: all 0.4s;
-        }
-
-        .content-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 5px; transition: all 0.5s ease; width: 100%; }
-        .inner-title-row { display: flex; align-items: center; gap: 12px; }
-
-        .exit-up { opacity: 0; transform: translateY(-15px); }
-        .enter-bottom { opacity: 0; transform: translateY(15px); }
-
-        .flip-out { opacity: 0; transform: rotateX(90deg); filter: blur(4px); }
-        .flip-in { opacity: 0; transform: rotateX(-90deg); filter: blur(4px); }
-
-        .theme-green { border-color: var(--it-green); color: var(--it-green); box-shadow: 0 5px 15px rgba(0, 255, 65, 0.1); }
-        .theme-blue { border-color: var(--it-blue); color: var(--it-blue); box-shadow: 0 5px 15px rgba(0, 242, 255, 0.1); }
-        .theme-red { border-color: var(--it-red); color: var(--it-red); box-shadow: 0 5px 15px rgba(255, 62, 62, 0.1); }
-        .color-blue { border-color: var(--it-blue) !important; color: var(--it-blue) !important; }
-        .color-green { border-color: var(--it-green) !important; color: var(--it-green) !important; }
-
-        /* Social Icons Grid - Centered Design */
-        .social-row { 
-            display: flex; 
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 12px; 
-            margin-top: 25px; 
-        }
-
-        .s-link {
-            width: 65px; 
-            height: 65px;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.1); border-radius: 14px;
-            display: flex; align-items: center; justify-content: center;
-            color: #fff; text-decoration: none; font-size: 22px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
-        .s-link:hover { transform: translateY(-8px); border-color: #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.5); }
-        .s-link.tiktok:hover { background: #000; color: #ff0050; }
-        .s-link.instagram:hover { background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fd5949 45%, #d6249f 60%, #285AEB 90%); }
-        .s-link.facebook:hover { background: #1877F2; }
-        .s-link.snapchat:hover { background: #FFFC00; color: #000; }
-        .s-link.twitter:hover { background: #000; color: #fff; border-color: #fff; }
-        .s-link.email:hover { background: #ea4335; }
-        .s-link.yahoo:hover { background: #410093; }
-        .s-link.discord:hover { background: #5865F2; }
-
-        .footer { 
-            margin-top: 50px; font-size: 10px; opacity: 0.4; font-family: 'Fira Code', monospace; 
-            letter-spacing: 2px; border-top: 1px solid rgba(255,255,255,0.05); padding-top: 20px;
-        }
-    </style>
+    <meta name="apple-mobile-web-app-title" content="Bizhar">
+    <meta name="application-name" content="Bizhar">
+    <link rel="apple-touch-icon" href="https://i.postimg.cc/zvmXKRKR/5B6603C5-50DF-4389-88A5-8919A0E4317C.png">
+    <link rel="icon" type="image/png" href="https://i.postimg.cc/zvmXKRKR/5B6603C5-50DF-4389-88A5-8919A0E4317C.png">
+    
+    <title>یارییا بینگۆ (1 - 99)</title>
+    
+    <link rel="stylesheet" href="style.css">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.20.2.js"></script>
 </head>
-<body>
+<body class="theme-classic" id="mainBody">
 
-<video autoplay muted loop playsinline id="bg-video">
-  <source src="https://assets.mixkit.co/videos/preview/mixkit-data-center-server-room-with-blue-lights-2738-large.mp4" type="video/mp4">
-</video>
-<div class="overlay-dark"></div>
+    <div id="floatingBg" class="floating-bg"></div>
 
-<div class="container">
-    <div class="logo-wrapper">
-        <img src="https://i.postimg.cc/MpNLqhYY/IMG-6220.jpg" class="logo-img" id="main-logo" alt="Bizhar">
-    </div>
-
-    <div class="name-main">Bizhar Rasheed</div>
-    <div class="name-sub">Professional IT Solutions</div>
-
-    <div id="service-btn" class="dynamic-service-btn theme-green">
-        <div id="service-content" class="content-wrap">
-            <div class="inner-title-row">
-                <i id="service-icon" class="fa-solid fa-layer-group anim-systems"></i>
-                <span id="service-text">SYSTEMS</span>
-            </div>
-            <span id="service-desc">Advanced Devices Configuration<br>بو دانان و پروگرامکرنا هەمی جیهازێن ئەلکترونی</span>
-        </div>
-    </div>
-
-    <a id="dynamic-call-btn" href="tel:+9647503644666" class="dynamic-contact-btn color-blue">
-        <div id="call-content" class="content-wrap">
-            <div style="display:flex; align-items:center; gap:12px;">
-                <i class="fa-solid fa-phone-volume shake-icon"></i>
-                <span id="phone-display-text">KOREK | +9647503644666</span>
-            </div>
-        </div>
-    </a>
-
-    <div class="social-row">
-        <a href="https://www.tiktok.com/@bizharrasheed" class="s-link tiktok" target="_blank"><i class="fa-brands fa-tiktok"></i></a>
-        <a href="https://www.instagram.com/bjarbergarey" class="s-link instagram" target="_blank"><i class="fa-brands fa-instagram"></i></a>
-        <a id="dynamic-wa-link" href="https://api.whatsapp.com/send?phone=9647503644666" class="s-link color-blue" target="_blank"><i class="fa-brands fa-whatsapp"></i></a>
-        <a href="https://www.facebook.com/bizharrasheed" class="s-link facebook" target="_blank"><i class="fa-brands fa-facebook-f"></i></a>
-        <a href="https://www.snapchat.com/add/bizharrasheed" class="s-link snapchat" target="_blank"><i class="fa-brands fa-snapchat"></i></a>
+    <div id="modeSelectionScreen" class="lobby-screen">
+        <h1>یارییا بینگۆ</h1>
+        <p style="font-size: 18px; margin-bottom: 30px; color: #fff; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">هیڤییە شێوازێ یاریێ هەلبژێرە:</p>
         
-        <a href="mailto:bjar.bergarey@gmail.com" class="s-link email" target="_blank"><i class="fa-solid fa-envelope"></i></a>
-        <a href="https://discord.gg/X7wS3jznjW" class="s-link discord" target="_blank"><i class="fa-brands fa-discord"></i></a>
-        <a href="mailto:bjar07503644666@yahoo.com" class="s-link yahoo" target="_blank"><i class="fa-brands fa-yahoo"></i></a>
-        <a href="https://twitter.com/BjarBergarey" class="s-link twitter" target="_blank"><i class="fa-brands fa-x-twitter"></i></a>
+        <button id="btnRejoin" class="btn-lobby-mode btn-rejoin" style="display: none;"
+            onclick="rejoinOnlineRoom()">🔄 ڤەگەڕیان بۆ ژوورا بەرێ</button>
+
+        <button class="btn-lobby-mode btn-local" onclick="selectMode('offline')">📱 یارییا ئۆفللاین (Local)</button>
+        <button class="btn-lobby-mode btn-online" onclick="selectMode('online')">🌐 یارییا ئۆنلاین (Multiplayer)</button>
     </div>
 
-    <div class="footer">
-        DEVELOPMENT BY: BIZHAR RASHEED  |  2026 ©
+    <div id="lobbyScreen" class="lobby-screen" style="display: none;">
+        <h1>یارییا ئۆنلاین</h1>
+        <p style="font-size: 16px; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 2px #000;">یاریێ ل گەل هەڤالان بکە!</p>
+        <div class="lobby-box">
+            <button id="btnCreateRoom" class="btn-lobby-mode btn-online" style="padding: 15px; font-size: 18px;" onclick="createRoom()">👑 دروستکرنا ژوورێ (Host)</button>
+            <div style="margin: 20px 0; border-top: 2px dashed #ccc; padding-top: 20px;">
+                <input type="text" id="joinRoomInput" class="custom-input" placeholder="کۆدێ ژوورێ (٤ پیت)..." style="text-transform: uppercase;">
+                <button id="btnJoinRoom" class="btn-lobby-mode btn-local" style="padding: 15px; font-size: 18px;"
+            onclick="joinRoom()">چوونە ژوورێ (Join)</button>
+            </div>
+            <button class="btn-modern" style="background: #f44336; border-color: #d32f2f; margin-top: 5px; width: 100%; padding: 12px;"
+            onclick="location.reload()">⬅️ ڤەگەڕیان</button>
+        </div>
     </div>
-</div>
 
-<script>
-    const services = [
-        { text: "SYSTEMS", desc: "Advanced Devices Configuration<br>بو دانان و پروگرامکرنا هەمی جیهازێن ئەلکترونی", icon: "fa-layer-group", theme: "theme-green", anim: "anim-systems" },
-        { text: "SECURITY", desc: "Social Media Protection & Security<br>بو پاراستنا ئەکاونتێن سوشیال میدیایێ", icon: "fa-shield-halved", theme: "theme-red", anim: "anim-security" },
-        { text: "ADS CREATOR", desc: "Professional Sponsored Campaigns<br>دروستکرن و دانانا سیستەمێن سپونسەریێ", icon: "fa-rectangle-ad", theme: "theme-blue", anim: "anim-ads" },
-        { text: "DEV_OPS", desc: "Software Development & Optimization<br>گەشە پێدانا پروگرامان و پێشخستنا وان", icon: "fa-code-branch", theme: "theme-green", anim: "anim-devops" }
-    ];
-
-    let sIndex = 0;
-    setInterval(() => {
-        const content = document.getElementById("service-content");
-        const text = document.getElementById("service-text");
-        const desc = document.getElementById("service-desc");
-        const icon = document.getElementById("service-icon");
-        const btn = document.getElementById("service-btn");
-
-        sIndex = (sIndex + 1) % services.length;
-        content.classList.add("exit-up");
-
-        setTimeout(() => {
-            text.innerText = services[sIndex].text;
-            desc.innerHTML = services[sIndex].desc;
-            icon.className = "fa-solid " + services[sIndex].icon + " " + services[sIndex].anim;
-            btn.className = "dynamic-service-btn " + services[sIndex].theme;
-            content.classList.remove("exit-up");
-            content.classList.add("enter-bottom");
+    <div id="waitingScreen" class="lobby-screen" style="display: none;">
+        <h1>ژوورا چاڤەڕێکرنێ</h1>
+        <div class="lobby-box">
+            <div style="font-size: 14px; font-weight: bold; color: #555;">کۆدێ ژوورا تە:</div>
             
-            setTimeout(() => {
-                content.classList.remove("enter-bottom");
-            }, 50);
-        }, 400);
-    }, 4000);
-
-    const contacts = [
-        { label: "KOREK | +9647503644666", tel: "tel:+9647503644666", wa: "https://api.whatsapp.com/send?phone=9647503644666", theme: "color-blue" },
-        { label: "KOREK | +9647503653355", tel: "tel:+9647503653355", wa: "https://api.whatsapp.com/send?phone=9647503653355", theme: "color-green" }
-    ];
-
-    let cIndex = 0;
-    setInterval(() => {
-        cIndex = (cIndex + 1) % contacts.length;
-        const current = contacts[cIndex];
-        const callBtn = document.getElementById("dynamic-call-btn");
-        const waLink = document.getElementById("dynamic-wa-link");
-        const label = document.getElementById("phone-display-text");
-        const callContent = document.getElementById("call-content");
-
-        callContent.classList.add("flip-out");
-        waLink.style.opacity = "0";
-
-        setTimeout(() => {
-            label.innerText = current.label;
-            callBtn.href = current.tel;
-            waLink.href = current.wa;
-            callBtn.className = "dynamic-contact-btn " + current.theme;
-            waLink.className = "s-link " + current.theme;
+            <div class="room-code-container">
+                <div id="displayRoomCode" class="room-code-display">----</div>
+                <button class="btn-modern" style="padding: 10px 15px; font-size: 18px; background: linear-gradient(to bottom, #fff, #ddd); color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"
+            onclick="copyRoomCode()" title="کۆپیکرنا کۆدی">📋</button>
+            </div>
             
-            callContent.classList.remove("flip-out");
-            callContent.classList.add("flip-in");
+            <p style="font-size: 13px; color: #666;">ڤی کۆدی بدە هەڤالێن خۆ دا کو بێنە ژوورێ</p>
+            <hr style="margin: 15px 0;">
+            <div id="playerSetupSection">
+                <input type="text" id="setupPlayerName" class="custom-input" placeholder="ناڤێ یاریزانی (نموونە: بـــژار)">
+                <div style="font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 5px;" id="onlineNumberTitle">ژمارەیێن خۆ هەلبژێرە:</div>
+                <div id="onlineNumberInputs" class="dynamic-inputs-container"></div>
+                <button class="btn-add-box" id="btnAddOnlineNumber" style="display:none;" onclick="addNumberBox('onlineNumberInputs')">➕ خانەیەکا دی زێدەبکە</button>
+                <button class="btn-add" id="btnReady" onclick="setPlayerReady()">ئامادەمە (Ready)</button>
+            </div>
+            <div id="hostSettingsSection" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid #ccc;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                    <strong style="color: #8b0000; font-size: 14px;">ژمارا کۆتایی یاریێ:</strong>
+                    <input type="number" id="hostMaxNumInput" class="speed-input-menu" value="99" onchange="updateHostSettings()">
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <strong style="color: #8b0000; font-size: 14px;">ژمارا پێدڤی یا هەلبژارتنێ:</strong>
+                    <select id="hostReqNumInput" class="speed-input-menu" onchange="updateHostSettings()">
+                        <option value="1">١ ژمارە</option>
+                        <option value="2">٢ ژمارە</option>
+                        <option value="3" selected>٣ ژمارە</option>
+                        <option value="4">٤ ژمارە</option>
+                        <option value="5">٥ ژمارە</option>
+                    </select>
+                </div>
+                <button class="btn-modern full-width" style="background: linear-gradient(to bottom, #2196F3, #0b7dda); font-size: 18px; padding: 15px;" id="btnStartGame" onclick="startGameHost()" disabled>دەستپێکرنا یاریێ 🚀</button>
+            </div>
+            <div style="margin-top: 20px; text-align: right;">
+                <strong style="color: #333;">یاریزانێن د ژوورێ دا:</strong>
+                <ul id="waitingPlayersList" style="list-style: none; padding: 0; margin: 10px 0; font-size: 14px; font-weight: bold; color: #000;"></ul>
+            </div>
+            <button class="btn-modern" style="background: #f44336; border-color: #d32f2f; margin-top: 10px; width: 100%;" onclick="leaveRoom()">🚪 دەرکەفتن ژ ژوورێ</button>
+        </div>
+    </div>
 
-            setTimeout(() => {
-                callContent.classList.remove("flip-in");
-                waLink.style.opacity = "1";
-            }, 50);
-        }, 400); 
-    }, 5000);
+    <div class="celebration-toast" id="celebrationToast"></div>
+    <div class="about-modal" id="historyModal">
+        <div class="about-box" style="max-width: 90%; width: 450px; padding: 15px;">
+            <h3 style="font-size: 16px; margin-bottom: 10px;">مێژوویا ژمارەیێن دەرکەفتی</h3>
+            <div id="historyList" style="display:flex; flex-wrap:wrap; gap:6px; max-height: 200px; overflow-y:auto; justify-content:center; padding:5px;"></div>
+            <button class="btn-close-about" style="padding: 8px 30px; font-size: 14px; margin-top: 10px;" onclick="closeHistory()">گرتن</button>
+        </div>
+    </div>
+    
+    <div class="about-modal" id="aboutModal">
+        <div class="about-box">
+            <h3>دەربارەی گەشەپێدەر</h3>
+            <p>ئەڤ یارییە هاتییە دروستکرن ژ لایێ پروگرامساز:</p>
+            <a href="https://bizhar-cloud.github.io/BizharRasheed/" target="_blank" class="about-link">BIZHAR RASHEED</a>
+            <p>هیڤیە ڤێ یاریێ بۆ چ کارێن خراپ و حەرام بکارنەئینن، بتنێ بۆ زەوق و دەمبۆراندنێ بکاربینن گونەها هەوە د ستۆیێ هەوە دابیت 😂</p>
+            <p style="color: #8b0000; font-size: 16px;">هیڤیا دەمێن خۆش بۆ هەوە. ❤️</p>
+            <button class="btn-close-about" onclick="closeAboutDeveloper()">گرتن</button>
+        </div>
+    </div>
+    
+    <div class="winner-modal" id="winnerModal">
+        <div class="loser-text" id="loserText"></div>
+        <button class="btn-restart" id="btnResetGameHost" onclick="resetGameDispatcher()">🔄 یارییەکا نوی دەستپێبکە</button>
+        <div id="waitResetMessage" style="color: white; font-size: 18px; display: none;">چاڤەڕێی خودانێ رۆمێ (Host) بە بۆ یارییەکا نوی...</div>
+        <button class="btn-restart" style="background: linear-gradient(to bottom, #777, #444); margin-top: 15px; padding: 10px 30px; font-size: 18px;" onclick="document.getElementById('winnerModal').style.display = 'none';">👀 دیتنا ئەنجامی</button>
+    </div>
 
-    window.onload = function() {
-        var img = document.getElementById('main-logo');
-        if (!img.complete || img.naturalWidth === 0) { img.src = 'https://i.postimg.cc/MpNLqhYY/IMG-6220.jpg'; }
-    };
-</script>
+    <div class="container" id="gameContainer">
+        <div class="layout-wrapper">
+            <div class="left-panel">
+                <div class="monitor-box"><div id="drawnNumberDisplay">--</div></div>
+                <div id="remainingCountDisplay" class="remaining-count">(99/99) ماینە</div>
+                <div class="match-display" id="matchDisplay"><div class="match-text" id="matchText">چاڤەڕێی ڕاکێشانێ یە...</div></div>
+                
+                <div class="buttons-row" id="hostGameControls">
+                    <button class="btn-modern btn-draw" onclick="window.manualDraw()">ڕاکێشان (١ جار)</button>
+                    <button class="btn-modern btn-auto" id="autoBtn" onclick="window.toggleAutoDraw()">ستارت (Start)</button>
+                    <button class="btn-modern full-width" id="btnResetLocal" onclick="window.resetGameDispatcher()" style="display: none;">🔄 نوی کرن (دەستپێکرنا یاریەکا نوی)</button>
+                </div>
+                <div id="playerWaitMessage" style="color: #8b0000; font-weight: bold; margin-bottom: 15px; display: none;">
+                    چاڤەڕێی خودانێ رۆمێ بە بۆ ڕاکێشانا ژمارەیان...
+                </div>
+            </div>
 
+            <div class="right-panel">
+                <div class="bingo-board" id="bingoBoard"></div>
+            </div>
+
+            <div class="players-section">
+                <div class="players-header">
+                    <span>لیستا یاریزانان</span>
+                    <button class="btn-menu-toggle" onclick="togglePlayerMenu()">☰ مینۆ</button>
+                </div>
+        
+                <div class="players-body">
+                    <div id="playerMenuContent" class="player-menu-content">
+                        <button class="menu-btn-item" onclick="toggleSubMenu('settingsPanel')">⚙️ ڕێکخستن</button>
+                        <div id="settingsPanel" class="menu-panel">
+                            <div class="settings-row" id="settingMaxNumRow">
+                                <span class="settings-label">ژمارا کۆتایی:</span>
+                                <input type="number" id="offlineMaxNumInput" class="speed-input-menu" min="10" max="500" value="99" onchange="changeMaxNumberOffline()">
+                            </div>
+                            <div class="settings-row" id="speedSettingRow">
+                                <span class="settings-label">لەزاتی (چرکە):</span>
+                                <input type="number" id="speedInput" class="speed-input-menu" min="1" max="30" value="3">
+                            </div>
+                            <div class="settings-row">
+                                <span class="settings-label">ڕەنگێ یاریێ:</span>
+                                <select id="themeSelect" class="speed-input-menu" style="width: 100px;" onchange="changeTheme()">
+                                    <option value="classic">کلاسیک</option>
+                                    <option value="dark">تاری</option>
+                                    <option value="blue">شین</option>
+                                    <option value="green">کەسک</option>
+                                    <option value="purple">مۆر</option>
+                                    <option value="orange">پرتەقاڵی</option>
+                                    <option value="pink">پەمبەیی</option>
+                                    <option value="coffee">قاوەیی</option>
+                                    <option value="neon">نیۆن</option>
+                                    <option value="ocean">ئۆقیانووس</option>
+                                </select>
+                            </div>
+                            <button class="btn-sound" id="soundBtn" onclick="toggleSoundMode()" style="margin-bottom: 8px;">🔊 دەنگ + خواندن</button>
+                        </div>
+
+                        <button class="menu-btn-item" onclick="toggleSubMenu('langPanel')">🗣️ زمانێ خواندنێ</button>
+                        <div id="langPanel" class="menu-panel">
+                            <select id="langSelect" class="custom-input" style="width: 100%; font-weight: bold;" onchange="changeLanguage()">
+                                <option value="en">English (ئینگلیزی)</option>
+                                <option value="ar">العربية (عەرەبی)</option>
+                                <option value="fa">فارسی (فارسی)</option>
+                                <option value="tr">Türkçe (تورکی)</option>
+                                <option value="ku">Kurdî (کوردی)</option>
+                            </select>
+                        </div>
+
+                        <button class="menu-btn-item" id="addPlayerMenuBtn" onclick="toggleSubMenu('addPlayerPanel')">➕ زێدەکرنا یاریزانان</button>
+                        <div id="addPlayerPanel" class="menu-panel">
+                            <div class="input-group">
+                                <input type="text" id="offlinePlayerName" class="custom-input" placeholder="ناڤێ یاریزانی (نموونە: بـــژار)">
+                                <div style="font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 5px;">ژمارەیێن وی (1 تا 99):</div>
+                                <div id="offlineNumberInputs" class="dynamic-inputs-container">
+                                    <input type="number" class="num-input-box">
+                                    <input type="number" class="num-input-box">
+                                    <input type="number" class="num-input-box">
+                                </div>
+                                <button class="btn-add-box" onclick="addNumberBox('offlineNumberInputs')">➕ خانەیەکا دی زێدەبکە</button>
+                                <button class="btn-add" id="btnAddPlayerOffline" onclick="addPlayerOffline()">Change (زێدەبکە)</button>
+                            </div>
+                            <button class="btn-clear-all" id="btnClearAllOffline" onclick="clearAllPlayersOffline()">🗑 ڕەشکرنا هەمی یاریزانان</button>
+                        </div>
+
+                        <button class="menu-btn-item" onclick="toggleSubMenu('alertsPanel')">🔔 کۆنترۆلا نامەیان (ئەلێرت)</button>
+                        <div id="alertsPanel" class="menu-panel">
+                            <div class="settings-row"><span style="font-size: 13px; font-weight: bold; color: #5a0000;">نامەیا ڕاکێشانا ژمارەیان:</span><button id="alertDrawBtn" class="toggle-btn" onclick="toggleAlert('draw')">هەلکرن</button></div>
+                            <div class="settings-row"><span style="font-size: 13px; font-weight: bold; color: #5a0000;">نامەیا پیرۆزباهیێ:</span><button id="alertWinBtn" class="toggle-btn" onclick="toggleAlert('win')">هەلکرن</button></div>
+                            <div class="settings-row"><span style="font-size: 13px; font-weight: bold; color: #5a0000;">نامەیا خوسارەتیێ:</span><button id="alertLoseBtn" class="toggle-btn" onclick="toggleAlert('lose')">هەلکرن</button></div>
+                        </div>
+
+                        <button class="menu-btn-item" style="background:#8e44ad; color:#fff;" onclick="showHistory()">📜 مێژوویا ڕاکێشانێ</button>
+                        <button class="menu-btn-item" style="background:#34495e; color:#fff;" onclick="toggleFullscreen()">🔲 شاشەیا تەمام</button>
+                        <button class="menu-btn-item" id="btnLeaveRoom" style="background:#f44336; color:#fff; display:none;" onclick="leaveRoom()">🚪 دەرکەفتن ژ یاریێ</button>
+                        <button class="menu-btn-item btn-share" onclick="shareGame()">📤 بەلاڤکرنا یاریێ (Share)</button>
+                        <button class="menu-btn-item btn-about" onclick="showAboutDeveloper()">ℹ️ دەربارەی گەشەپێدەر</button>
+                    </div>
+
+                    <div class="players-list" id="playersList"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="onlineFloatingControls" class="floating-controls" style="display:none;">
+        <div class="emoji-bar">
+            <button onclick="sendReaction('😂')">😂</button>
+            <button onclick="sendReaction('🎉')">🎉</button>
+            <button onclick="sendReaction('😡')">😡</button>
+            <button onclick="sendReaction('💔')">💔</button>
+        </div>
+        
+        <button class="fab-btn chat-fab" onclick="toggleChat()" title="چات">💬</button>
+        <button id="micToggleBtn" class="fab-btn mic-fab" style="background: #f44336;" onclick="window.toggleMyMic()" title="مایکی من">🔇</button>
+        <button id="muteAllBtn" class="fab-btn mute-all-fab" style="display: none; background: #ff9800;" onclick="window.toggleMuteAll()" title="بێدەنگکرنا هەمیا">🔕</button>
+    </div>
+
+    <div id="chatOverlay" class="chat-overlay" style="display:none;">
+        <div class="chat-header">
+            <span>چات (Chat)</span>
+            <button onclick="toggleChat()">X</button>
+        </div>
+        <div id="chatMessages" class="chat-messages"></div>
+        <div class="chat-input-area">
+            <input type="text" id="chatInput" placeholder="نامەیەکێ بنڤیسە..." onkeypress="if(event.key==='Enter') window.sendChatMessage()">
+            <button onclick="window.sendChatMessage()">بفرێکه</button>
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
 </body>
 </html>
