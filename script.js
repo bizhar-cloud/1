@@ -902,6 +902,11 @@ window.resetLocalGameUI = function() {
     window.updateRemainingCount();
     if (window.alertsEnabled.draw) { document.getElementById('matchText').innerHTML = 'چاڤەڕێی ڕاکێشانێ یە...'; document.getElementById('matchText').classList.remove('hit'); }
     document.getElementById('winnerModal').style.display = 'none';
+
+    // 🟢 زێدەکرنا ڕەشکرنا چاتێ بۆ هەمی یاریزانان ل دەمێ نوی بوونەڤەیا یاریێ
+    const chatMessagesDiv = document.getElementById('chatMessages');
+    if(chatMessagesDiv) chatMessagesDiv.innerHTML = '';
+
     if(window.gameMode === 'online') { 
         window.hasJoined = false;
         document.getElementById('btnReady').innerText = "ئامادەمە (Ready)"; document.getElementById('btnReady').disabled = false; 
