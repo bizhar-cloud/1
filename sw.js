@@ -1,19 +1,21 @@
-const CACHE_NAME = 'bizhar-bingo-cache-v1';
+const CACHE_NAME = 'gostilk-game-v1';
+
+// فایلێن کو دێ هێنە خەزنکرن بۆ ئۆفلاین
 const urlsToCache = [
     './',
     './index.html',
     './style.css',
     './script.js',
-    'https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap',
-    'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js',
-    'https://download.agora.io/sdk/release/AgoraRTC_N-4.20.2.js'
+    './manifest.json',
+    'https://fonts.googleapis.com/css2?family=Nrt+Reg&display=swap',
+    'https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js'
 ];
 
 self.addEventListener('install', event => {
     event.waitUntil(
         caches.open(CACHE_NAME)
             .then(cache => {
-                console.log('Opened cache');
+                console.log('فایل د کاشێ دا هاتنە هەلگرتن');
                 return cache.addAll(urlsToCache);
             })
     );
@@ -23,10 +25,12 @@ self.addEventListener('fetch', event => {
     event.respondWith(
         caches.match(event.request)
             .then(response => {
+                // ئەگەر د کاشێ دا هەبیت، بینە
                 if (response) {
-                    return response; // ئەگەر د کاشێ دا هەبوو، ژ وێرێ بینە
+                    return response; 
                 }
-                return fetch(event.request); // ئەگەر نەبوو، ژ ئینتەرنێتێ بینە
+                // ئەگەر نە، ژ ئینتەرنێتێ بینە
+                return fetch(event.request); 
             })
     );
 });
