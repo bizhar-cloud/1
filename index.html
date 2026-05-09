@@ -2,257 +2,102 @@
 <html lang="ku" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="theme-color" content="#9e0b0f">
+    <meta name="apple-mobile-web-app-title" content="گوستیلکانێ">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#0f172a">
     
-    <meta name="apple-mobile-web-app-title" content="Bizhar">
-    <meta name="application-name" content="Bizhar">
-    <link rel="apple-touch-icon" href="https://i.postimg.cc/zvmXKRKR/5B6603C5-50DF-4389-88A5-8919A0E4317C.png">
-    <link rel="icon" type="image/png" href="https://i.postimg.cc/zvmXKRKR/5B6603C5-50DF-4389-88A5-8919A0E4317C.png">
-    
-    <title>یارییا بینگۆ (1 - 99)</title>
+    <link rel="manifest" href="manifest.json">
+
+    <title>یارییا گوستیلکانێ - ڤێرژنا زێڕین</title>
     
     <link rel="stylesheet" href="style.css">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@400;700;900&display=swap" rel="stylesheet">
+
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-    <script src="https://download.agora.io/sdk/release/AgoraRTC_N-4.20.2.js"></script>
 </head>
-<body class="theme-classic" id="mainBody">
+<body>
 
-    <div id="floatingBg" class="floating-bg"></div>
+    <div class="game-board" id="board">
+        <h1>💍 یارییا گوستیلکانێ 💍</h1>
 
-    <div id="modeSelectionScreen" class="lobby-screen">
-        <h1>یارییا بینگۆ</h1>
-        <p style="font-size: 18px; margin-bottom: 30px; color: #fff; font-weight: bold; text-shadow: 1px 1px 3px rgba(0,0,0,0.8);">هیڤییە شێوازێ یاریێ هەلبژێرە:</p>
-        
-        <button id="btnRejoin" class="btn-lobby-mode btn-rejoin" style="display: none;"
-            onclick="rejoinOnlineRoom()">🔄 ڤەگەڕیان بۆ ژوورا بەرێ</button>
-
-        <button class="btn-lobby-mode btn-local" onclick="selectMode('offline')">📱 یارییا ئۆفللاین (Local)</button>
-        <button class="btn-lobby-mode btn-online" onclick="selectMode('online')">🌐 یارییا ئۆنلاین (Multiplayer)</button>
-    </div>
-
-    <div id="lobbyScreen" class="lobby-screen" style="display: none;">
-        <h1>یارییا ئۆنلاین</h1>
-        <p style="font-size: 16px; margin-bottom: 20px; font-weight: bold; text-shadow: 1px 1px 2px #000;">یاریێ ل گەل هەڤالان بکە!</p>
-        <div class="lobby-box">
-            <button id="btnCreateRoom" class="btn-lobby-mode btn-online" style="padding: 15px; font-size: 18px;" onclick="createRoom()">👑 دروستکرنا ژوورێ (Host)</button>
-            <div style="margin: 20px 0; border-top: 2px dashed #ccc; padding-top: 20px;">
-                <input type="text" id="joinRoomInput" class="custom-input" placeholder="کۆدێ ژوورێ (٤ پیت)..." style="text-transform: uppercase;">
-                <button id="btnJoinRoom" class="btn-lobby-mode btn-local" style="padding: 15px; font-size: 18px;"
-            onclick="joinRoom()">چوونە ژوورێ (Join)</button>
-            </div>
-            <button class="btn-modern" style="background: #f44336; border-color: #d32f2f; margin-top: 5px; width: 100%; padding: 12px;"
-            onclick="location.reload()">⬅️ ڤەگەڕیان</button>
-        </div>
-    </div>
-
-    <div id="waitingScreen" class="lobby-screen" style="display: none;">
-        <h1>ژوورا چاڤەڕێکرنێ</h1>
-        <div class="lobby-box">
-            <div style="font-size: 14px; font-weight: bold; color: #555;">کۆدێ ژوورا تە:</div>
-            
-            <div class="room-code-container">
-                <div id="displayRoomCode" class="room-code-display">----</div>
-                <button class="btn-modern" style="padding: 10px 15px; font-size: 18px; background: linear-gradient(to bottom, #fff, #ddd); color: #333; box-shadow: 0 2px 4px rgba(0,0,0,0.3);"
-            onclick="copyRoomCode()" title="کۆپیکرنا کۆدی">📋</button>
-            </div>
-            
-            <p style="font-size: 13px; color: #666;">ڤی کۆدی بدە هەڤالێن خۆ دا کو بێنە ژوورێ</p>
-            <hr style="margin: 15px 0;">
-            <div id="playerSetupSection">
-                <input type="text" id="setupPlayerName" class="custom-input" placeholder="ناڤێ یاریزانی (نموونە: بـــژار)">
-                <div style="font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 5px;" id="onlineNumberTitle">ژمارەیێن خۆ هەلبژێرە:</div>
-                <div id="onlineNumberInputs" class="dynamic-inputs-container"></div>
-                <button class="btn-add-box" id="btnAddOnlineNumber" style="display:none;" onclick="addNumberBox('onlineNumberInputs')">➕ خانەیەکا دی زێدەبکە</button>
-                <button class="btn-add" id="btnReady" onclick="setPlayerReady()">ئامادەمە (Ready)</button>
-            </div>
-            <div id="hostSettingsSection" style="display: none; margin-top: 15px; padding-top: 15px; border-top: 2px solid #ccc;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                    <strong style="color: #8b0000; font-size: 14px;">ژمارا کۆتایی یاریێ:</strong>
-                    <input type="number" id="hostMaxNumInput" class="speed-input-menu" value="99" onchange="updateHostSettings()">
+        <div class="scoreboard">
+            <div class="team-card" id="team1-card">
+                <div class="team-header">
+                    <span class="team-emoji" id="emoji1" onclick="cycleEmoji(1)">🦁</span>
+                    <input type="text" class="team-name" id="name1" value="گروپێ ١" oninput="saveData()">
                 </div>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <strong style="color: #8b0000; font-size: 14px;">ژمارا پێدڤی یا هەلبژارتنێ:</strong>
-                    <select id="hostReqNumInput" class="speed-input-menu" onchange="updateHostSettings()">
-                        <option value="1">١ ژمارە</option>
-                        <option value="2">٢ ژمارە</option>
-                        <option value="3" selected>٣ ژمارە</option>
-                        <option value="4">٤ ژمارە</option>
-                        <option value="5">٥ ژمارە</option>
-                    </select>
+                <div class="score-container">
+                    <span class="score-display" id="score1">0</span>
                 </div>
-                <button class="btn-modern full-width" style="background: linear-gradient(to bottom, #2196F3, #0b7dda); font-size: 18px; padding: 15px;" id="btnStartGame" onclick="startGameHost()" disabled>دەستپێکرنا یاریێ 🚀</button>
-            </div>
-            <div style="margin-top: 20px; text-align: right;">
-                <strong style="color: #333;">یاریزانێن د ژوورێ دا:</strong>
-                <ul id="waitingPlayersList" style="list-style: none; padding: 0; margin: 10px 0; font-size: 14px; font-weight: bold; color: #000;"></ul>
-            </div>
-            <button class="btn-modern" style="background: #f44336; border-color: #d32f2f; margin-top: 10px; width: 100%;" onclick="leaveRoom()">🚪 دەرکەفتن ژ ژوورێ</button>
-        </div>
-    </div>
-
-    <div class="celebration-toast" id="celebrationToast"></div>
-    <div class="about-modal" id="historyModal">
-        <div class="about-box" style="max-width: 90%; width: 450px; padding: 15px;">
-            <h3 style="font-size: 16px; margin-bottom: 10px;">مێژوویا ژمارەیێن دەرکەفتی</h3>
-            <div id="historyList" style="display:flex; flex-wrap:wrap; gap:6px; max-height: 200px; overflow-y:auto; justify-content:center; padding:5px;"></div>
-            <button class="btn-close-about" style="padding: 8px 30px; font-size: 14px; margin-top: 10px;" onclick="closeHistory()">گرتن</button>
-        </div>
-    </div>
-    
-    <div class="about-modal" id="aboutModal">
-        <div class="about-box">
-            <h3>دەربارەی گەشەپێدەر</h3>
-            <p>ئەڤ یارییە هاتییە دروستکرن ژ لایێ پروگرامساز:</p>
-            <a href="https://bizhar-cloud.github.io/BizharRasheed/" target="_blank" class="about-link">BIZHAR RASHEED</a>
-            <p>هیڤیە ڤێ یاریێ بۆ چ کارێن خراپ و حەرام بکارنەئینن، بتنێ بۆ زەوق و دەمبۆراندنێ بکاربینن گونەها هەوە د ستۆیێ هەوە دابیت 😂</p>
-            <p style="color: #8b0000; font-size: 16px;">هیڤیا دەمێن خۆش بۆ هەوە. ❤️</p>
-            <button class="btn-close-about" onclick="closeAboutDeveloper()">گرتن</button>
-        </div>
-    </div>
-    
-    <div class="winner-modal" id="winnerModal">
-        <div class="loser-text" id="loserText"></div>
-        <button class="btn-restart" id="btnResetGameHost" onclick="resetGameDispatcher()">🔄 یارییەکا نوی دەستپێبکە</button>
-        <div id="waitResetMessage" style="color: white; font-size: 18px; display: none;">چاڤەڕێی خودانێ رۆمێ (Host) بە بۆ یارییەکا نوی...</div>
-        <button class="btn-restart" style="background: linear-gradient(to bottom, #777, #444); margin-top: 15px; padding: 10px 30px; font-size: 18px;" onclick="document.getElementById('winnerModal').style.display = 'none';">👀 دیتنا ئەنجامی</button>
-    </div>
-
-    <div class="container" id="gameContainer">
-        <div class="layout-wrapper">
-            <div class="left-panel">
-                <div class="monitor-box"><div id="drawnNumberDisplay">--</div></div>
-                <div id="remainingCountDisplay" class="remaining-count">(99/99) ماینە</div>
-                <div class="match-display" id="matchDisplay"><div class="match-text" id="matchText">چاڤەڕێی ڕاکێشانێ یە...</div></div>
-                
-                <div class="buttons-row" id="hostGameControls">
-                    <button class="btn-modern btn-draw" onclick="window.manualDraw()">ڕاکێشان (١ جار)</button>
-                    <button class="btn-modern btn-auto" id="autoBtn" onclick="window.toggleAutoDraw()">ستارت (Start)</button>
-                    <button class="btn-modern full-width" id="btnResetLocal" onclick="window.resetGameDispatcher()" style="display: none;">🔄 نوی کرن (دەستپێکرنا یاریەکا نوی)</button>
-                </div>
-                <div id="playerWaitMessage" style="color: #8b0000; font-weight: bold; margin-bottom: 15px; display: none;">
-                    چاڤەڕێی خودانێ رۆمێ بە بۆ ڕاکێشانا ژمارەیان...
-                </div>
+                <div class="role-indicator">نۆڕەیا لێگەڕیانێ یە</div>
+                <div class="hiding-badge">💍 گوستیلک یا لڤێرە</div>
             </div>
 
-            <div class="right-panel">
-                <div class="bingo-board" id="bingoBoard"></div>
-            </div>
-
-            <div class="players-section">
-                <div class="players-header">
-                    <span>لیستا یاریزانان</span>
-                    <button class="btn-menu-toggle" onclick="togglePlayerMenu()">☰ مینۆ</button>
+            <div class="team-card hiding" id="team2-card">
+                <div class="team-header">
+                    <span class="team-emoji" id="emoji2" onclick="cycleEmoji(2)">🦅</span>
+                    <input type="text" class="team-name" id="name2" value="گروپێ ٢" oninput="saveData()">
                 </div>
-        
-                <div class="players-body">
-                    <div id="playerMenuContent" class="player-menu-content">
-                        <button class="menu-btn-item" onclick="toggleSubMenu('settingsPanel')">⚙️ ڕێکخستن</button>
-                        <div id="settingsPanel" class="menu-panel">
-                            <div class="settings-row" id="settingMaxNumRow">
-                                <span class="settings-label">ژمارا کۆتایی:</span>
-                                <input type="number" id="offlineMaxNumInput" class="speed-input-menu" min="10" max="500" value="99" onchange="changeMaxNumberOffline()">
-                            </div>
-                            <div class="settings-row" id="speedSettingRow">
-                                <span class="settings-label">لەزاتی (چرکە):</span>
-                                <input type="number" id="speedInput" class="speed-input-menu" min="1" max="30" value="3">
-                            </div>
-                            <div class="settings-row">
-                                <span class="settings-label">ڕەنگێ یاریێ:</span>
-                                <select id="themeSelect" class="speed-input-menu" style="width: 100px;" onchange="changeTheme()">
-                                    <option value="classic">کلاسیک</option>
-                                    <option value="dark">تاری</option>
-                                    <option value="blue">شین</option>
-                                    <option value="green">کەسک</option>
-                                    <option value="purple">مۆر</option>
-                                    <option value="orange">پرتەقاڵی</option>
-                                    <option value="pink">پەمبەیی</option>
-                                    <option value="coffee">قاوەیی</option>
-                                    <option value="neon">نیۆن</option>
-                                    <option value="ocean">ئۆقیانووس</option>
-                                </select>
-                            </div>
-                            <button class="btn-sound" id="soundBtn" onclick="toggleSoundMode()" style="margin-bottom: 8px;">🔊 دەنگ + خواندن</button>
-                        </div>
-
-                        <button class="menu-btn-item" onclick="toggleSubMenu('langPanel')">🗣️ زمانێ خواندنێ</button>
-                        <div id="langPanel" class="menu-panel">
-                            <select id="langSelect" class="custom-input" style="width: 100%; font-weight: bold;" onchange="changeLanguage()">
-                                <option value="en">English (ئینگلیزی)</option>
-                                <option value="ar">العربية (عەرەبی)</option>
-                                <option value="fa">فارسی (فارسی)</option>
-                                <option value="tr">Türkçe (تورکی)</option>
-                                <option value="ku">Kurdî (کوردی)</option>
-                            </select>
-                        </div>
-
-                        <button class="menu-btn-item" id="addPlayerMenuBtn" onclick="toggleSubMenu('addPlayerPanel')">➕ زێدەکرنا یاریزانان</button>
-                        <div id="addPlayerPanel" class="menu-panel">
-                            <div class="input-group">
-                                <input type="text" id="offlinePlayerName" class="custom-input" placeholder="ناڤێ یاریزانی (نموونە: بـــژار)">
-                                <div style="font-size: 13px; font-weight: bold; text-align: center; margin-bottom: 5px;">ژمارەیێن وی (1 تا 99):</div>
-                                <div id="offlineNumberInputs" class="dynamic-inputs-container">
-                                    <input type="number" class="num-input-box">
-                                    <input type="number" class="num-input-box">
-                                    <input type="number" class="num-input-box">
-                                </div>
-                                <button class="btn-add-box" onclick="addNumberBox('offlineNumberInputs')">➕ خانەیەکا دی زێدەبکە</button>
-                                <button class="btn-add" id="btnAddPlayerOffline" onclick="addPlayerOffline()">Change (زێدەبکە)</button>
-                            </div>
-                            <button class="btn-clear-all" id="btnClearAllOffline" onclick="clearAllPlayersOffline()">🗑 ڕەشکرنا هەمی یاریزانان</button>
-                        </div>
-
-                        <button class="menu-btn-item" onclick="toggleSubMenu('alertsPanel')">🔔 کۆنترۆلا نامەیان (ئەلێرت)</button>
-                        <div id="alertsPanel" class="menu-panel">
-                            <div class="settings-row"><span style="font-size: 13px; font-weight: bold; color: #5a0000;">نامەیا ڕاکێشانا ژمارەیان:</span><button id="alertDrawBtn" class="toggle-btn" onclick="toggleAlert('draw')">هەلکرن</button></div>
-                            <div class="settings-row"><span style="font-size: 13px; font-weight: bold; color: #5a0000;">نامەیا پیرۆزباهیێ:</span><button id="alertWinBtn" class="toggle-btn" onclick="toggleAlert('win')">هەلکرن</button></div>
-                            <div class="settings-row"><span style="font-size: 13px; font-weight: bold; color: #5a0000;">نامەیا خوسارەتیێ:</span><button id="alertLoseBtn" class="toggle-btn" onclick="toggleAlert('lose')">هەلکرن</button></div>
-                        </div>
-
-                        <button class="menu-btn-item" style="background:#8e44ad; color:#fff;" onclick="showHistory()">📜 مێژوویا ڕاکێشانێ</button>
-                        <button class="menu-btn-item" style="background:#34495e; color:#fff;" onclick="toggleFullscreen()">🔲 شاشەیا تەمام</button>
-                        <button class="menu-btn-item" id="btnLeaveRoom" style="background:#f44336; color:#fff; display:none;" onclick="leaveRoom()">🚪 دەرکەفتن ژ یاریێ</button>
-                        <button class="menu-btn-item btn-share" onclick="shareGame()">📤 بەلاڤکرنا یاریێ (Share)</button>
-                        <button class="menu-btn-item btn-about" onclick="showAboutDeveloper()">ℹ️ دەربارەی گەشەپێدەر</button>
-                    </div>
-
-                    <div class="players-list" id="playersList"></div>
+                <div class="score-container">
+                    <span class="score-display" id="score2">0</span>
                 </div>
+                <div class="role-indicator">نۆڕەیا لێگەڕیانێ یە</div>
+                <div class="hiding-badge">💍 گوستیلک یا لڤێرە</div>
             </div>
         </div>
-    </div>
 
-    <div id="onlineFloatingControls" class="floating-controls" style="display:none;">
-        <div class="emoji-bar">
-            <button onclick="sendReaction('😂')">😂</button>
-            <button onclick="sendReaction('🎉')">🎉</button>
-            <button onclick="sendReaction('😡')">😡</button>
-            <button onclick="sendReaction('💔')">💔</button>
+        <div id="message">ئامادەکرنا یاریێ...</div>
+
+        <div class="action-bar" id="setup-bar" style="display: none;">
+            <div class="settings-box">
+                <select id="hand-count-select" onchange="changeHandCount()">
+                    <option value="2">2 دەست</option>
+                    <option value="4">4 دەست</option>
+                    <option value="6">6 دەست</option>
+                    <option value="8">8 دەست</option>
+                    <option value="10" selected>10 دەست</option>
+                    <option value="12">12 دەست</option>
+                    <option value="14">14 دەست</option>
+                    <option value="16">16 دەست</option>
+                    <option value="18">18 دەست</option>
+                    <option value="20">20 دەست</option>
+                </select>
+            </div>
+            <button class="start-btn" onclick="beginRound()">دەستپێبکە 🚀</button>
         </div>
         
-        <button class="fab-btn chat-fab" onclick="toggleChat()" title="چات">💬</button>
-        <button id="micToggleBtn" class="fab-btn mic-fab" style="background: #f44336;" onclick="window.toggleMyMic()" title="مایکی من">🔇</button>
-        <button id="muteAllBtn" class="fab-btn mute-all-fab" style="display: none; background: #ff9800;" onclick="window.toggleMuteAll()" title="بێدەنگکرنا هەمیا">🔕</button>
+        <div class="action-bar" id="game-controls" style="display: none;">
+            <div class="controls">
+                <button id="btn-pichke" class="mode-btn active" onclick="setMode('pichke')">پوچکە (ڤالایە)</button>
+                <button id="btn-bine" class="mode-btn" onclick="setMode('bine')">بینە (گوستیلک)</button>
+            </div>
+        </div>
+
+        <div class="hands-grid" id="hands-container"></div>
+
+        <button id="restart-btn" onclick="continueGame()">دەستەکێ نوی 🔄</button>
     </div>
 
-    <div id="chatOverlay" class="chat-overlay" style="display:none;">
-        <div class="chat-header">
-            <span>چات (Chat)</span>
-            <button onclick="toggleChat()">X</button>
-        </div>
-        <div id="chatMessages" class="chat-messages"></div>
-        <div class="chat-input-area">
-            <input type="text" id="chatInput" placeholder="نامەیەکێ بنڤیسە..." onkeypress="if(event.key==='Enter') window.sendChatMessage()">
-            <button onclick="window.sendChatMessage()">بفرێکه</button>
-        </div>
+    <div class="history-box">
+        <h3 class="history-title">📜 تۆمارا یاریێ</h3>
+        <div class="history-list" id="history-log">
+            </div>
+        <button class="reset-storage-btn" onclick="hardReset()">ژێبرنا یاریێ و دەستپێکرن ژ سفرێ</button>
     </div>
 
-    <script type="module" src="script.js"></script>
+    <script src="script.js"></script>
+
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('sw.js')
+                    .then(reg => console.log('Service Worker تۆمار بوو', reg))
+                    .catch(err => console.log('تۆمارکرنا SW خەلەت بوو:', err));
+            });
+        }
+    </script>
 </body>
 </html>
