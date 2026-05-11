@@ -395,7 +395,8 @@ function handleHandClick(index, cardContainer) {
         if (hidingScore >= 20 && hidingScore < 23) {
             setMode('bine'); 
             btnPichke.disabled = true;
-            showMessage(`🌸 دەستە گول! ${getTeamName(searcherTeamId)} تنێ دشێت بێژیت بینە 🌸`, "", "dasta-gul-msg");
+            let nivaDastan = Math.floor(totalHands / 2);
+            showMessage(`🌸 دەستە گول! ${getTeamName(searcherTeamId)} مافێ هەیە بێژیت ${nivaDastan} دەستا بدەمن 🌸`, "", "dasta-gul-msg");
         } else {
             setMode('pichke'); 
             btnPichke.disabled = false;
@@ -474,17 +475,44 @@ function handleHandClick(index, cardContainer) {
             
             endGame(true, `پیرۆزە! تە گوستیلک دیت 🎉`, resetMsg, "winner-msg");
         } else {
-            playLoseSound(); 
-            backEmoji.textContent = '🖐️'; 
-            cardContainer.classList.add('flipped', 'loser'); 
-            board.classList.add('shake-effect');
+            let hidingScore = hidingTeamId === 1 ? score1 : score2;
+            let isDastaGul = (hidingScore >= 20 && hidingScore < 23);
+            let allowedPicks = isDastaGul ? Math.floor(totalHands / 2) : 1;
             
-            let gameEnded = autoAddPoint(hidingTeamId);
-            addLog(`❌ ${getTeamName(searcherTeamId)} خەلەت بوو (گۆت بینە لێ ڤالا بوو). +١ خاڵ بۆ ${getTeamName(hidingTeamId)}`, "lose-log");
-            
-            if (gameEnded) return;
-            
-            endGame(false, `خەلەتە! ڤالا بوو 💔`, `(+١ خاڵ بۆ ${getTeamName(hidingTeamId)})`, "loser-msg");
+            if (isDastaGul) {
+                flippedEmptyHands++; 
+                backEmoji.textContent = '🖐️'; 
+                cardContainer.classList.add('flipped'); 
+                
+                if (flippedEmptyHands >= allowedPicks) {
+                    playLoseSound(); 
+                    cardContainer.classList.add('loser'); 
+                    board.classList.add('shake-effect');
+                    
+                    let gameEnded = autoAddPoint(hidingTeamId);
+                    addLog(`❌ ${getTeamName(searcherTeamId)} خەلەت بوو و هەمی ${allowedPicks} مافێن خۆ بکارئینان. +١ خاڵ بۆ ${getTeamName(hidingTeamId)}`, "lose-log");
+                    
+                    if (gameEnded) return;
+                    
+                    endGame(false, `خەلەتە! هەمی مافێن تە ب دوماهی هاتن 💔`, `(+١ خاڵ بۆ ${getTeamName(hidingTeamId)})`, "loser-msg");
+                } else {
+                    playTone(400, 'sine', 0.1); 
+                    let mafenMayi = allowedPicks - flippedEmptyHands;
+                    showMessage(`ڤالایە! دشێی بێژی ${mafenMayi} دەستێن دی بدەمن 🌸`, "", "dasta-gul-msg");
+                }
+            } else {
+                playLoseSound(); 
+                backEmoji.textContent = '🖐️'; 
+                cardContainer.classList.add('flipped', 'loser'); 
+                board.classList.add('shake-effect');
+                
+                let gameEnded = autoAddPoint(hidingTeamId);
+                addLog(`❌ ${getTeamName(searcherTeamId)} خەلەت بوو (گۆت بینە لێ ڤالا بوو). +١ خاڵ بۆ ${getTeamName(hidingTeamId)}`, "lose-log");
+                
+                if (gameEnded) return;
+                
+                endGame(false, `خەلەتە! ڤالا بوو 💔`, `(+١ خاڵ بۆ ${getTeamName(hidingTeamId)})`, "loser-msg");
+            }
         }
     }
 }
