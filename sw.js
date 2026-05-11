@@ -1,4 +1,4 @@
-const CACHE_NAME = 'gostilk-game-v1';
+const CACHE_NAME = 'ring-game-v1';
 
 // فایلێن کو دێ هێنە خەزنکرن بۆ ئۆفلاین
 const urlsToCache = [
